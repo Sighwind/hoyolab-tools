@@ -8,7 +8,6 @@ on:
 jobs:
   check-in:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -42,3 +41,10 @@ jobs:
           REPOSITORY: ${{ github.repository }}
           USING_ACTIONS: "true"
           TOKEN: ${{ secrets.GH_TOKEN }}
+  workflow-keepalive:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: liskin/gh-workflow-keepalive@v1
